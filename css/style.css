@@ -1,0 +1,142 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', 'Segoe UI', Tahoma, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* Soft Dreamy Romantic Gradient Background */
+    background: linear-gradient(-45deg, #ff9a9e, #fecfef, #feada6, #f2709c);
+    background-size: 400% 400%;
+    animation: gradientBG 12s ease infinite;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Background Animated Gradient Effect */
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Floating Hearts Overlay Effect */
+body::before, body::after {
+    content: '💖  ❤️  💕  💗  🌸  💓  ✨  💖  ❤️';
+    position: absolute;
+    width: 100%;
+    font-size: 1.8rem;
+    display: flex;
+    justify-content: space-around;
+    pointer-events: none;
+    z-index: 0;
+}
+
+body::before {
+    top: -60px;
+    opacity: 0.4;
+    animation: floatHearts 9s linear infinite;
+}
+
+body::after {
+    top: -120px;
+    opacity: 0.25;
+    animation: floatHearts 14s linear infinite 3s;
+}
+
+@keyframes floatHearts {
+    0% {
+        transform: translateY(0) rotate(0deg) scale(0.9);
+    }
+    50% {
+        transform: translateY(50vh) rotate(180deg) scale(1.1);
+    }
+    100% {
+        transform: translateY(115vh) rotate(360deg) scale(0.9);
+    }
+}
+
+/* Romantic Glassmorphism Card */
+.card {
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 35px 25px;
+    border-radius: 28px;
+    box-shadow: 0 15px 35px rgba(238, 105, 131, 0.35), 0 5px 15px rgba(255, 255, 255, 0.6) inset;
+    text-align: center;
+    max-width: 360px;
+    width: 90%;
+    position: relative;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    z-index: 10;
+}
+
+.img-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-container img {
+    width: 210px;
+    height: 200px;
+    object-fit: contain;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 8px 12px rgba(255, 105, 135, 0.2));
+}
+
+h2 {
+    color: #ff2a5f;
+    font-size: 1.6rem;
+    margin-bottom: 22px;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(255, 77, 109, 0.15);
+}
+
+.btn-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    min-height: 50px;
+    position: relative;
+}
+
+button {
+    padding: 12px 28px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#yesBtn {
+    background: linear-gradient(135deg, #ff4d6d, #ff2a5f);
+    color: white;
+    box-shadow: 0 6px 18px rgba(255, 42, 95, 0.4);
+    z-index: 1;
+}
+
+#yesBtn:hover {
+    transform: scale(1.12);
+    box-shadow: 0 8px 24px rgba(255, 42, 95, 0.6);
+}
+
+#noBtn {
+    background: #ffffff;
+    color: #666;
+    border: 1px solid #ffd1dc;
+    position: absolute;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    z-index: 2;
+}
