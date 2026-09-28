@@ -39,22 +39,28 @@ noBtn.addEventListener('touchstart', (e) => {
 
 function moveNoButton() {
     const card = document.querySelector('.card');
-    const cardRect = card.getBoundingClientRect();
-    const btnRect = noBtn.getBoundingClientRect();
 
-    // কার্ডের ভেতর বাটনটি নিরাপদে চলাফেরা করার সীমানা (Padding Safe Zone)
-    const padding = 15;
-    const maxX = cardRect.width - btnRect.width - (padding * 2);
-    const maxY = cardRect.height - btnRect.height - (padding * 2);
+    // কার্ডের আসল সাইজ নেওয়া
+    const cardWidth = card.clientWidth;
+    const cardHeight = card.clientHeight;
 
-    // নিরাপদ সীমানার মধ্যে র্যান্ডম পজিশন
+    const btnWidth = noBtn.offsetWidth;
+    const btnHeight = noBtn.offsetHeight;
+
+    // নিরাপদ সীমানা (Padding)
+    const padding = 20;
+
+    // সর্বোচ্চ কত দূর পর্যন্ত বাটন যেতে পারবে
+    const maxX = cardWidth - btnWidth - padding;
+    const maxY = cardHeight - btnHeight - padding;
+
+    // র্যান্ডম পজিশন হিসাব
     const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
     const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
 
-    noBtn.style.top = `${randomY}px`;
+    noBtn.style.position = 'absolute';
     noBtn.style.left = `${randomX}px`;
-    noBtn.style.bottom = 'auto';
-    noBtn.style.right = 'auto';
+    noBtn.style.top = `${randomY}px`;
 }
 
 // Yes button click action

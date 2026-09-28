@@ -72,7 +72,9 @@ body::after {
     text-align: center;
     max-width: 360px;
     width: 90%;
-    position: relative;
+    min-height: 420px; /* নির্দিষ্ট উচ্চতা দেওয়া হলো যেন লাফানোর জায়গা পায় */
+    position: relative; /* অত্যন্ত জরুরি */
+    overflow: hidden;  /* কার্ডের বাইরে বাটন যাওয়া ১০০% লক করবে */
     border: 2px solid rgba(255, 255, 255, 0.9);
     z-index: 10;
 }
