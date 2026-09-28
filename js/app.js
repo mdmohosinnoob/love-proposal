@@ -2,68 +2,53 @@ const yesBtn = document.getElementById('yesBtn');
 const noBtn = document.getElementById('noBtn');
 const question = document.getElementById('question');
 const gif = document.getElementById('gif');
+const btnGroup = document.querySelector('.btn-group');
 
 const musicBefore = document.getElementById('bgMusicBefore');
 const musicAfter = document.getElementById('bgMusicAfter');
 
-window.addEventListener('DOMContentLoaded', () => {
-    resetNoButtonPosition();
-});
-
-// ইনিশিয়াল পজিশন সেটআপ
-function resetNoButtonPosition() {
-    noBtn.style.position = 'absolute';
-    noBtn.style.bottom = '15px';
-    noBtn.style.right = '20px';
-    noBtn.style.top = 'auto';
-    noBtn.style.left = 'auto';
-}
-
-// প্রথম ক্লিকে মিউজিক শুরু
+// প্রথম টাচ/ক্লিকে ব্যাকগ্রাউন্ড মিউজিক প্লে করা
 function startInitialMusic() {
     if (musicBefore && musicBefore.paused) {
         musicBefore.volume = 0.3;
-        musicBefore.play().catch(err => console.log("Initial audio error:", err));
+        musicBefore.play().catch(err => console.log("Audio error:", err));
     }
 }
-
 window.addEventListener('click', startInitialMusic, { once: true });
 window.addEventListener('touchstart', startInitialMusic, { once: true });
 
-// No button hover / touch event
+// ইনস্ট্যান্ট সুপার-ফাস্ট মুভমেন্ট ইভেন্ট
 noBtn.addEventListener('mouseover', moveNoButton);
 noBtn.addEventListener('touchstart', (e) => {
-    e.preventDefault(); // মোবাইলে স্ক্রোল হওয়া আটকায়
+    e.preventDefault();
+    moveNoButton();
+});
+noBtn.addEventListener('pointerdown', (e) => {
+    e.preventDefault();
     moveNoButton();
 });
 
 function moveNoButton() {
-    const card = document.querySelector('.card');
+    if (!btnGroup) return;
 
-    // কার্ডের আসল সাইজ নেওয়া
-    const cardWidth = card.clientWidth;
-    const cardHeight = card.clientHeight;
+    const containerWidth = btnGroup.clientWidth;
+    const containerHeight = btnGroup.clientHeight;
 
     const btnWidth = noBtn.offsetWidth;
     const btnHeight = noBtn.offsetHeight;
 
-    // নিরাপদ সীমানা (Padding)
-    const padding = 20;
+    // .btn-group এর সীমানার ভেতরেই র্যান্ডম পজিশন গণনা
+    const maxX = Math.max(0, containerWidth - btnWidth);
+    const maxY = Math.max(0, containerHeight - btnHeight);
 
-    // সর্বোচ্চ কত দূর পর্যন্ত বাটন যেতে পারবে
-    const maxX = cardWidth - btnWidth - padding;
-    const maxY = cardHeight - btnHeight - padding;
+    const randomX = Math.floor(Math.random() * maxX);
+    const randomY = Math.floor(Math.random() * maxY);
 
-    // র্যান্ডম পজিশন হিসাব
-    const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
-    const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
-
-    noBtn.style.position = 'absolute';
     noBtn.style.left = `${randomX}px`;
     noBtn.style.top = `${randomY}px`;
 }
 
-// Yes button click action
+// Yes Button Click Action
 yesBtn.addEventListener('click', () => {
     question.innerHTML = 'I knew it! 🥰❤️';
     gif.src = './img/bear2.gif';
@@ -78,5 +63,12 @@ yesBtn.addEventListener('click', () => {
         musicAfter.play().catch(err => console.log("Main audio error:", err));
     }
 
-    document.querySelector('.btn-group').style.display = 'none';
+    if (btnGroup) {
+        btnGroup.style.display = 'none';
+    }
+});
+// No button click/tap block
+noBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    moveNoButton();
 });
